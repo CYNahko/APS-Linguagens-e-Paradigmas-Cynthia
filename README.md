@@ -14,7 +14,8 @@ Escolhi utilizar uma história fictícia para utilizar como base da línguagem, 
 
 ## EBNF
 
-<pre>```PROGRAM         = { STATEMENT } ;
+<pre>```
+PROGRAM         = { STATEMENT } ;
 
 STATEMENT       = PROCESS_DECL | LINK_STMT | MUTATE_STMT | MERGE_STMT
                 | IF_STMT| LOOP_STMT | RETURN_STMT ;
