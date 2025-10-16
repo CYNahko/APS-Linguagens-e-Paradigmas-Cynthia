@@ -38,3 +38,47 @@ SYLLABLE        = CONSONANT VOWEL [ CONSONANT ] ;
 CONSONANT       = "s" | "r" | "l" | "h" | "v" | "d" | "z" | "k" | "m" | "g" ;
 VOWEL           = "a" | "e" | "i" | "o" | "u" ;
 ```</pre>
+
+## Arquitetura da CocoonVM
+
+A CocoonVM possui uma arquitetura minimalista, com quatro registradores principais:
+
+| Registrador | Função |
+|--------------|--------|
+| R1 | Massa (quantidade de gosma / vitalidade) |
+| R2 | Energia Sombria (fonte vital e combustível) |
+| R3 | Mutação (forma atual) |
+| R4 | Fluxo Coletivo (nível de conexão com a Colmeia) |
+
+Além disso, há sensores de ambiente como `sensor_energia`, `sensor_calor`, `sensor_fluxo` e `sensor_impacto`, que representam estímulos externos lidos pelos casulos.
+
+## Exemplo
+
+### Código Glurr'ik
+
+<pre>```glurrik
+Srrl CasuloPrincipal() {
+  Vleth massa Esshl
+  Frral (sensor_energia > 50) {
+    Hrrash gosma -> colmeia;
+  } Shrelk {
+    Drazh gosma, energia Esshl fusao;
+  }
+  Srryl massa;
+}
+```</pre>
+
+## Saida em Assembly
+
+<pre>```LABEL CasuloPrincipal
+MUTAR massa
+CMP sensor_energia, 50
+IFGT bloco1
+DISSOLVER gosma, energia -> fusao
+JMP fim
+LABEL bloco1
+PARTILHAR gosma, colmeia
+LABEL fim
+RETURN R1
+HALT```</pre>
+
