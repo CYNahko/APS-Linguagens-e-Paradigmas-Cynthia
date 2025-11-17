@@ -1,0 +1,24 @@
+/* literal Esshl */
+// MUTATE sama ... expr below
+MUTAR sama
+PARTILHAR sama, mava
+CONDENSAR sama, mava -> gaga
+/* push num 100 */
+/* push num 10 */
+/* push num 0 */
+RETURN
+LABEL loop_start_0
+IFZERO loop_end_0
+JMP loop_start_0
+LABEL loop_end_0
+/* push num 1 */
+RETURN
+// IF start
+IFGT if_true_0
+JMP if_false_0
+LABEL if_true_0
+JMP if_end_0
+LABEL if_false_0
+LABEL if_end_0
+LABEL riralu
+LABEL riralu_end

@@ -11,9 +11,8 @@ extern FILE *yyin;
 extern int yyparse(void);
 void yyerror(const char *s);
 
+%error-verbose
 %}
-
-%define parse.error verbose
 
 %token T_SRRl T_HRRASH T_VLETH T_DRAZH T_ESSHL T_FRRAL T_SHRELK T_ZRRAN T_SRRYL T_ARROW
 %token T_IDENTIFIER T_NUMBER T_STRING
@@ -70,7 +69,7 @@ PROCESS_BODY:
   ;
 
 LINK_STMT:
-    T_HRRASH IDENTIFIER T_ARROW IDENTIFIER
+    T_HRRASH IDENTIFIER T_ARROW IDENTIFIER ';'
       {
         /* mapping: Hrrash a -> b  => PARTILHAR a,b (assembly) */
         emit("PARTILHAR %s, %s", $2, $4);
@@ -78,7 +77,7 @@ LINK_STMT:
   ;
 
 MUTATE_STMT:
-    T_VLETH IDENTIFIER EXPRESSION
+    T_VLETH IDENTIFIER EXPRESSION ';'
       {
         /* mapping: Vleth id expr  -> set id = expr then MUTAR id */
         /* simple: evaluate expr into literal (only constants support in proto) */
@@ -88,7 +87,7 @@ MUTATE_STMT:
   ;
 
 MERGE_STMT:
-    T_DRAZH IDENTIFIER ',' IDENTIFIER T_ESSHL IDENTIFIER
+    T_DRAZH IDENTIFIER ',' IDENTIFIER T_ESSHL IDENTIFIER ';'
       {
         /* Drazh a, b Esshl c  -> MERGE a and b into c  => emit as CONDENSE and REGISTER */
         emit("CONDENSAR %s, %s -> %s", $2, $4, $6);
@@ -134,7 +133,7 @@ LOOP_STMT:
   ;
 
 RETURN_STMT:
-    T_SRRYL EXPRESSION
+    T_SRRYL EXPRESSION ';'
       {
         emit("RETURN");
       }
@@ -142,17 +141,14 @@ RETURN_STMT:
 
 /* EXPRESSION: keep it simple for prototype — support numbers, ids, binary ops */
 EXPRESSION:
-    T_NUMBER                  { emit("/* push num %ld */", $1); }
-  | IDENTIFIER                { emit("/* ref id %s */", $1); }
-  | T_STRING                  { emit("/* push string %s */", $1); }
-  | T_ESSHL                   { emit("/* literal Esshl */"); }
-  | '(' EXPRESSION ')'        { /* already emitted */ }
+    T_NUMBER              { emit("/* push num %ld */", $1); }
+  | IDENTIFIER            { emit("/* ref id %s */", $1); }
+  | '(' EXPRESSION ')'    { /* already emitted */ }
   | EXPRESSION '+' EXPRESSION { emit("/* add */"); }
   | EXPRESSION '-' EXPRESSION { emit("/* sub */"); }
   | EXPRESSION '*' EXPRESSION { emit("/* mul */"); }
   | EXPRESSION '/' EXPRESSION { emit("/* div */"); }
   ;
-
 
 IDENTIFIER:
     T_IDENTIFIER          { $$ = $1; }

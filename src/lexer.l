@@ -9,10 +9,10 @@ extern int yylineno;
 %}
 
 /* Definitions (macros) */
-CONSONANT   [srlhvdzkmg]
-VOWEL       [aeiou]
+CONSONANT   [srlhvdzkmgSRLHVDZKMG]
+VOWEL       [aeiouAEIOU]
 SYLL       {CONSONANT}{VOWEL}{CONSONANT}?
-IDENT      ({SYLL})+
+IDENT      [A-Za-z][A-Za-z0-9_]*
 
 DIGIT       [0-9]
 NUMBER      {DIGIT}+

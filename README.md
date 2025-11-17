@@ -10,11 +10,11 @@ Na ficção, os monstros de gosma surgiram quando uma espécie de alienígenas q
 
 Um pesquisador, que é um monstro de gosma, curioso em estudar o funcionamento dos casulos e da mente coletiva, decidiu criar uma linguagem de programação que pudesse simulá-los e os pensamentos da mente coletiva, sem colocar algum monstro de gosma em risco. E para isso, ele utilizou uma versão artificial e hipotética de um casulo como uma VM para criar um ambiente controlado para os experiementos, já que um casulo é um container e um sistema ao mesmo tempo, como se fosse uma VM orgânica.
 
-Escolhi utilizar uma história fictícia para utilizar como base da línguagem, pois há alguns meses atrás, que foi o momento que de fato comecei a estruturar a história, percebi que criei uma sociedade tão complexa quanto a humana, ou seja, eles tinham cultura e identidade própria, um território exclusivo deles e uma estrutura social, com base em níveis de poder. Então, naturalmente, aproveitei que tinha a base fictícia e decidi montar a linguagem de programação em cima dela.
+Escolhi utilizar uma história fictícia para utilizar como base da línguagem. Alguns meses atrás, quando comecei a estruturar a minha história original, percebi que criei uma sociedade tão complexa quanto a humana, ou seja, eles tinham cultura e identidade própria, um território exclusivo deles e uma estrutura social, com base em níveis de poder. Então, aproveitei que tinha a base fictícia e decidi montar a linguagem de programação inspirada nesse universo.
 
 ## EBNF
 
-<pre>```
+```
 PROGRAM         = { STATEMENT } ;
 
 STATEMENT       = PROCESS_DECL | LINK_STMT | MUTATE_STMT | MERGE_STMT
@@ -37,7 +37,7 @@ IDENTIFIER      = SYLLABLE { SYLLABLE } ;
 SYLLABLE        = CONSONANT VOWEL [ CONSONANT ] ;
 CONSONANT       = "s" | "r" | "l" | "h" | "v" | "d" | "z" | "k" | "m" | "g" ;
 VOWEL           = "a" | "e" | "i" | "o" | "u" ;
-```</pre>
+```
 
 ## Arquitetura da CocoonVM
 
@@ -56,29 +56,44 @@ Além disso, há sensores de ambiente como `sensor_energia`, `sensor_calor`, `se
 
 ### Código Glurr'ik
 
-<pre>```glurrik
-Srrl CasuloPrincipal() {
-  Vleth massa Esshl
-  Frral (sensor_energia > 50) {
-    Hrrash gosma -> colmeia;
+```glurrik
+Srrl riralu() {
+  Vleth sama Esshl;
+  Hrrash sama -> mava;
+  Drazh sama, mava Esshl gaga;
+  Frral (100) {
+    Zrran (10) { Srryl 0; }
   } Shrelk {
-    Drazh gosma, energia Esshl fusao;
+    Srryl 1;
   }
-  Srryl massa;
 }
-```</pre>
+```
 
 ## Saida em Assembly
 
-<pre>```LABEL CasuloPrincipal
-MUTAR massa
-CMP sensor_energia, 50
-IFGT bloco1
-DISSOLVER gosma, energia -> fusao
-JMP fim
-LABEL bloco1
-PARTILHAR gosma, colmeia
-LABEL fim
-RETURN R1
-HALT```</pre>
+```/* literal Esshl */
+// MUTATE sama ... expr below
+MUTAR sama
+PARTILHAR sama, mava
+CONDENSAR sama, mava -> gaga
+/* push num 100 */
+/* push num 10 */
+/* push num 0 */
+RETURN
+LABEL loop_start_0
+IFZERO loop_end_0
+JMP loop_start_0
+LABEL loop_end_0
+/* push num 1 */
+RETURN
+// IF start
+IFGT if_true_0
+JMP if_false_0
+LABEL if_true_0
+JMP if_end_0
+LABEL if_false_0
+LABEL if_end_0
+LABEL riralu
+LABEL riralu_end
+```
 
